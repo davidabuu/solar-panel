@@ -1,8 +1,11 @@
-import { useEffect } from "react";
-import { Input, Button } from "antd";
+import { useEffect, useState } from "react";
+import { Input, Button, notification } from "antd";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Aos from "aos";
+import { useRouter } from "next/router";
 import "aos/dist/aos.css";
+import { AdminEndpoints } from "@/helper";
+import axios from "axios";
 function AdminLogin() {
   type FormValues = {
     emailAddress: string;
@@ -14,9 +17,39 @@ function AdminLogin() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  console.log(errors);
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `${process.env.API_URL}${AdminEndpoints.adminLogin}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (res.data == "Success") {
+        notification.success({
+          message: "Success",
+          description: "Login Success",
+          duration: 2,
+        });
+        localStorage.setItem("rrree", "rrttt");
+        setLoading(false);
+        router.push("/admin-dashboard");
+      }
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "Admin Not Found or incorrect password",
+        duration: 2,
+      });
+      setLoading(false);
+    }
   };
   useEffect(() => {
     Aos.init();
@@ -82,6 +115,7 @@ function AdminLogin() {
           className="bg-orange-500 mt-6 text-white w-[200px] font-bold hover:bg-gray-500"
           type="primary"
           htmlType="submit"
+          loading={loading}
         >
           Submit
         </Button>

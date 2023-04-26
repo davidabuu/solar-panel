@@ -25,6 +25,14 @@ body {
 li {
   list-style: none;
 }
+.ant-dropdown-menu-title-content button {
+  background-color: #1890ff;
+
+  color: #fff;
+}
+.ant-dropdown-menu-title-content button:hover{
+  color: #fff !important;
+}
 .img-bg {
   background: linear-gradient(0deg, transparent, rgba(9, 10, 10, 0.605)),
     url("/img2.png");
@@ -209,7 +217,6 @@ input {
 }
 .table {
   margin-top: 10px;
- 
 }
 /* End of Dashboard Style */
 /* Footer Style */

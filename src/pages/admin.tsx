@@ -1,11 +1,12 @@
 import AdminLogin from "@/components/AdminLogin";
+import UserWebLayout from "@/components/UserWebLayout";
 import React from "react";
 
 const Admin = () => {
   return (
-    <div>
+    <UserWebLayout webtitle='Admin Login'>
       <AdminLogin />
-    </div>
+    </UserWebLayout>
   );
 };
 

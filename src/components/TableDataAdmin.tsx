@@ -1,100 +1,68 @@
-import React from "react";
-import { Table } from "antd";
-import { CheckOutlined } from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
+import { Button, Dropdown, Menu, Skeleton, Table, notification } from "antd";
+import axios from "axios";
+import { AdminEndpoints } from "@/helper";
+import { DownOutlined } from "@ant-design/icons";
+import VerifyUserModal from "./VerifyUserModal";
 const TableDataAdmin = () => {
-  const dataSource = [
-    {
-      key: "1",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      qty: 24,
-      status: "Status",
-    },
-    {
-      key: "2",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "3",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "4",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "12",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "5",
+  interface UserData {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    password: string;
+    confirmPassword: string;
+    latitude: number;
+    longitude: number;
+    phoneNumber: string;
+    isVerified: boolean;
+    userId: number;
+  }
 
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "6",
+  const handleMenuClick = (user: UserData, action: string) => {
+    // Handle the menu click here
+  };
 
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "7",
-
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "8",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "9",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-    {
-      key: "10",
-      userId: 1,
-      firstName: "Abu",
-      lastName: "10Rad",
-      latitude: 24,
-      status: "Status",
-    },
-  ];
+  const renderMenu = (user: UserData) => {
+    return (
+      <Menu onClick={(e) => handleMenuClick(user, e.key)}>
+        <Menu.Item key={user.userId}>View User Dashboard</Menu.Item>
+        {!user.isVerified ? (
+          <Menu.Item
+            className="menu"
+            key={user.userId}
+          >
+            <VerifyUserModal key={user.userId} />
+          </Menu.Item>
+        ) : (
+          ""
+        )}
+      </Menu>
+    );
+  };
+  const [data, setData] = useState<UserData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [modal, showModal] = useState<boolean>(true);
+  const ShowModal = () => {
+    showModal(true);
+  };
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const res = await axios.get(
+          `${process.env.API_URL}${AdminEndpoints.getUsers}`
+        );
+        setData(res.data);
+        setLoading(false);
+      };
+      fetchData();
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "Something went wrong, refresh the page",
+        duration: 2,
+      });
+    }
+  }, []);
 
   const columns = [
     {
@@ -131,20 +99,63 @@ const TableDataAdmin = () => {
       title: "Verified",
       dataIndex: "isVerified",
       key: "isVerified",
-      render: () => (
+      render: (text: boolean) => (
         <div style={{ color: "green", fontWeight: "bolder" }}>
-          <CheckOutlined />
+          {text ? (
+            <Button
+              type="primary"
+              className=" bg-green-500 hover:bg-green-500 text-white"
+            >
+              Verified
+            </Button>
+          ) : (
+            <Button
+              onClick={ShowModal}
+              className="bg-red-500 text-white"
+            >
+              Not Verified
+            </Button>
+          )}
         </div>
       ),
     },
+    {
+      title: "Action",
+      key: "action",
+      render: (text: string, record: UserData) => (
+        <Dropdown
+          key={record.userId}
+          overlay={renderMenu(record)}
+          trigger={["click"]}
+          placement="bottomRight"
+          arrow
+        >
+          <a
+            className="ant-dropdown-link"
+            onClick={(e) => e.preventDefault()}
+          >
+            <DownOutlined />
+          </a>
+        </Dropdown>
+      ),
+    },
   ];
+
   return (
     <div className="table w-[100%] px-8">
       <Table
         columns={columns}
-        dataSource={dataSource}
-        scroll={{
-          x: 100,
+        dataSource={data}
+        loading={loading}
+        pagination={false}
+        rowKey={"userId"}
+        locale={{
+          emptyText: (
+            <Skeleton
+              active
+              paragraph={{ rows: 10 }}
+            />
+          ),
         }}
       />
     </div>
