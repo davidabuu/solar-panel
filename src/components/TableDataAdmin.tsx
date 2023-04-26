@@ -4,6 +4,7 @@ import axios from "axios";
 import { AdminEndpoints } from "@/helper";
 import { DownOutlined } from "@ant-design/icons";
 import VerifyUserModal from "./VerifyUserModal";
+import MonitoringDataModel from "./MonitoringDataModel";
 const TableDataAdmin = () => {
   interface UserData {
     firstName: string;
@@ -16,12 +17,17 @@ const TableDataAdmin = () => {
     phoneNumber: string;
     isVerified: boolean;
     userId: number;
+    userMonitoringDevice: boolean;
+    userPowerPlantData: boolean;
   }
 
   const handleMenuClick = (user: UserData, action: string) => {
     // Handle the menu click here
   };
-
+  const [monitoringModal, showMonitoringModal] = useState<boolean>(false);
+  const ShowMonitoringModal = () => {
+    showMonitoringModal(!monitoringModal);
+  };
   const renderMenu = (user: UserData) => {
     return (
       <Menu onClick={(e) => handleMenuClick(user, e.key)}>
@@ -36,15 +42,30 @@ const TableDataAdmin = () => {
         ) : (
           ""
         )}
+        <Menu.Item
+          key={user.userId}
+          onClick={ShowMonitoringModal}
+        >
+          View Monitoring Data
+        </Menu.Item>
+        {!user.userMonitoringDevice ? (
+          <Menu.Item
+            className="menu"
+            key={user.userId}
+          >
+            <MonitoringDataModel
+              key={user.userId}
+              id={user.userId}
+            />
+          </Menu.Item>
+        ) : (
+          <div>{monitoringModal ? <MonitoringDataModel id={user.userId} /> : ""}</div>
+        )}
       </Menu>
     );
   };
   const [data, setData] = useState<UserData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [modal, showModal] = useState<boolean>(true);
-  const ShowModal = () => {
-    showModal(true);
-  };
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -109,12 +130,7 @@ const TableDataAdmin = () => {
               Verified
             </Button>
           ) : (
-            <Button
-              onClick={ShowModal}
-              className="bg-red-500 text-white"
-            >
-              Not Verified
-            </Button>
+            <Button className="bg-red-500 text-white">Not Verified</Button>
           )}
         </div>
       ),
