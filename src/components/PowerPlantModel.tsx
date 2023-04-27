@@ -48,7 +48,7 @@ const PowerPlantModel: FC<DataProp> = ({ id }) => {
         duration: 2,
       });
     }
-  }, []);
+  }, [id]);
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true);
     console.log(data);

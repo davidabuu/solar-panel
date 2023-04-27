@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Input } from "antd";
-import UserWebLayout from "../src/components/UserWebLayout";
 import Link from 'next/link'
+import UserWebLayout from "@/components/UserWebLayout";
 const Login = () => {
   return (
     <UserWebLayout webtitle="LOGIN">

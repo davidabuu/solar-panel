@@ -1,4 +1,5 @@
-import TableData from "@/components/TableData";
+
+
 import UserWebLayout from "@/components/UserWebLayout";
 import { User } from "heroicons-react";
 import Link from "next/link";
@@ -16,7 +17,6 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-        <TableData />
       </div>
     </UserWebLayout>
   );
