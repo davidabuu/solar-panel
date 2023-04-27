@@ -5,6 +5,7 @@ import { AdminEndpoints } from "@/helper";
 import { DownOutlined } from "@ant-design/icons";
 import VerifyUserModal from "./VerifyUserModal";
 import MonitoringDataModel from "./MonitoringDataModel";
+import PowerPlantModel from "./PowerPlantModel";
 const TableDataAdmin = () => {
   interface UserData {
     firstName: string;
@@ -25,10 +26,15 @@ const TableDataAdmin = () => {
     // Handle the menu click here
   };
   const [monitoringModal, showMonitoringModal] = useState<boolean>(false);
+  const [powerPlantModal, showPowerPlantModal] = useState<boolean>(false);
   const ShowMonitoringModal = () => {
     showMonitoringModal(!monitoringModal);
   };
+  const PowerPlantModal = () => {
+    showPowerPlantModal(!powerPlantModal);
+  };
   const renderMenu = (user: UserData) => {
+    console.log(user.userMonitoringDevice);
     return (
       <Menu onClick={(e) => handleMenuClick(user, e.key)}>
         <Menu.Item key={user.userId}>View User Dashboard</Menu.Item>
@@ -42,24 +48,31 @@ const TableDataAdmin = () => {
         ) : (
           ""
         )}
-        <Menu.Item
-          key={user.userId}
-          onClick={ShowMonitoringModal}
-        >
-          View Monitoring Data
-        </Menu.Item>
         {!user.userMonitoringDevice ? (
           <Menu.Item
             className="menu"
+            onClick={ShowMonitoringModal}
             key={user.userId}
           >
-            <MonitoringDataModel
-              key={user.userId}
-              id={user.userId}
-            />
+            <MonitoringDataModel id={user.userId} />
           </Menu.Item>
         ) : (
-          <div>{monitoringModal ? <MonitoringDataModel id={user.userId} /> : ""}</div>
+          <div>
+            <MonitoringDataModel id={user.userId} />
+          </div>
+        )}
+        {!user.userPowerPlantData ? (
+          <Menu.Item
+            className="menu"
+            onClick={PowerPlantModal}
+            key={user.userId}
+          >
+            <PowerPlantModel id={user.userId} />
+          </Menu.Item>
+        ) : (
+          <div>
+            <PowerPlantModel id={user.userId} />
+          </div>
         )}
       </Menu>
     );

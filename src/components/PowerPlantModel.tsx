@@ -6,14 +6,14 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 interface DataProp {
   id: number;
 }
-const MonitoringDataModel: FC<DataProp> = ({ id }) => {
+const PowerPlantModel: FC<DataProp> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(false);
   type FormValues = {
-    emailAddress: string;
     userId: number;
-    macAddress: string;
-    ipAddress: string;
-    port: number;
+    capacity: number;
+    shortCircuitVoltage: number;
+    inverterCapactity: number;
+    emailAddress: string;
   };
   const { control, handleSubmit } = useForm<FormValues>();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -31,7 +31,7 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
     try {
       const fetchData = async () => {
         const res = await axios.get(
-          `${process.env.API_URL}${AdminEndpoints.getUserMonitoringData}${id}`
+          `${process.env.API_URL}${AdminEndpoints.getPowerPlantData}${id}`
         );
         setData(res.data[0]);
 
@@ -54,7 +54,7 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
     console.log(data);
     try {
       const res = await axios.post(
-        `${process.env.API_URL}${AdminEndpoints.addUserMonitoringData}`,
+        `${process.env.API_URL}${AdminEndpoints.addPowerPlantData}`,
         data,
         {
           headers: {
@@ -78,11 +78,11 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
 
   return (
     <>
-      <Button className="bg-yellow-500 text-white" onClick={handleShowModal}>
-        {modal ? "Add monitoring Data" : "View Monitoring Data"}{" "}
+      <Button className="my-2 bg-yellow-500 text-white" onClick={handleShowModal}>
+        {modal ? "Add Power Plant Data" : "View Power Plant Data"}{" "}
       </Button>
       <Modal
-        title="Monitoring Data Modal"
+        title="Power Plant  Data Modal"
         open={isModalVisible}
         onOk={handleHideModal}
         onCancel={handleHideModal}
@@ -127,10 +127,10 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
               />
             </div>
             <div className="pb-2">
-              <label>MAC Address</label>
+              <label>Capacity</label>
               <br></br>
               <Controller
-                name="macAddress"
+                name="capacity"
                 control={control}
                 rules={{ required: "This field is required" }}
                 render={({ field }: any) => (
@@ -144,17 +144,16 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
               />
             </div>
             <div className="pb-2">
-              <label>IP Address</label>
+              <label>Short Circuit Voltage</label>
               <br></br>
               <Controller
-                name="ipAddress"
+                name="shortCircuitVoltage"
                 control={control}
                 rules={{ required: "This field is required" }}
                 render={({ field }: any) => (
                   <>
                     <Input
                       {...field}
-                      placeholder="Enter Admin Email Address"
                       type="text"
                     />
                   </>
@@ -162,10 +161,10 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
               />
             </div>
             <div className="pb-2">
-              <label>Port Number</label>
+              <label>Inverter Capacity</label>
               <br></br>
               <Controller
-                name="port"
+                name="inverterCapactity"
                 control={control}
                 rules={{ required: "This field is required" }}
                 render={({ field }: any) => (
@@ -200,31 +199,31 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
               />
             </div>
             <div className="pb-2">
-              <label>MAC Address</label>
+              <label>Capacity</label>
               <br></br>
 
               <Input
                 type="text"
-                value={data?.macAddress}
+                value={data?.capacity + "m"}
               />
             </div>
             <div className="pb-2">
-              <label>IP Address</label>
+              <label>Short Circuit Voltage</label>
               <br></br>
 
               <Input
-                value={data?.ipAddress}
+                value={data?.shortCircuitVoltage + "V"}
                 type="text"
               />
             </div>
             <div className="pb-2">
-              <label>Port Number</label>
+              <label> Inverter Capactity</label>
               <br></br>
 
               <Input
                 placeholder="Enter Admin Email Address"
-                value={data?.port}
-                type="number"
+                value={data?.inverterCapactity + "m"}
+                type="text"
               />
             </div>
           </div>
@@ -234,4 +233,4 @@ const MonitoringDataModel: FC<DataProp> = ({ id }) => {
   );
 };
 
-export default MonitoringDataModel;
+export default PowerPlantModel;

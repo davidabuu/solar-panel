@@ -4,4 +4,7 @@ export const AdminEndpoints = {
   getUsers: `${baseAdminUrl}/GetAllUsers`,
   verifyUsers: `${baseAdminUrl}/VerifyUser`,
   addUserMonitoringData: `${baseAdminUrl}/UserMonitoringData`,
+  getUserMonitoringData:`${baseAdminUrl}/MonitoringDetails/`,
+  addPowerPlantData: `${baseAdminUrl}/UserPowerData`,
+  getPowerPlantData:`${baseAdminUrl}/PowerPlant/`
 };
