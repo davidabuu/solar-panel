@@ -1,4 +1,5 @@
 const baseAdminUrl = "/AdminAuth";
+const baseUserUrl = "/UserAuth"
 export const AdminEndpoints = {
   adminLogin: `${baseAdminUrl}/AdminLogin`,
   getUsers: `${baseAdminUrl}/GetAllUsers`,
@@ -8,3 +9,7 @@ export const AdminEndpoints = {
   addPowerPlantData: `${baseAdminUrl}/UserPowerData`,
   getPowerPlantData:`${baseAdminUrl}/PowerPlant/`
 };
+export const UserEndpoints = {
+  userLogin:`${baseUserUrl}/UserLogin`,
+  userRegistration:`${baseUserUrl}/UserRegistration`
+}
