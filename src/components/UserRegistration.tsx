@@ -97,138 +97,182 @@ function UserRegistration() {
     <UserWebLayout webtitle="User Registration">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center img-bg items-center h-screen bg-cover bg-center"
+        className="flex flex-col justify-center  img-bg items-center h-screen bg-cover bg-center"
       >
         <div
           data-aos="fade-right"
-          className="flex flex-col  items-center h-max w-5/6 sm:w-3/5 md:w-2/5 lg:w-1/3 bg-white rounded-lg shadow-md"
+          className="flex flex-col  items-center h-max w-max px-8 bg-white rounded-lg shadow-md"
         >
           <h1 className="text-2xl py-4">USER REGISTRATION</h1>
-          <div className="py-2 ">
-            <label className="block">First Name</label>
-            <Controller
-              name="firstName"
-              control={control}
-              rules={{ required: "This field is required" }}
-              render={({ field }: any) => (
-                <>
-                  <Input
-                    {...field}
-                    type="text"
-                  />
-                  {errors.firstName && (
-                    <span className="text-red-500">
-                      {errors.firstName.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
+          <div className="flex flex-col  lg:flex-row lg:justify-evenly">
+            <div className="py-2 mr-2  ">
+              <label className="block">First Name</label>
+              <Controller
+                name="firstName"
+                control={control}
+                rules={{ required: "This field is required" }}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="text"
+                    />
+                    {errors.firstName && (
+                      <span className="text-red-500">
+                        {errors.firstName.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+            <div className="py-2 mr-2 ">
+              <label className="block">Last Name</label>
+              <Controller
+                name="lastName"
+                control={control}
+                rules={{ required: "This field is required" }}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="text"
+                    />
+                    {errors.lastName && (
+                      <span className="text-red-500">
+                        {errors.lastName.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
           </div>
-          <div className="py-2 ">
-            <label className="block">Last Name</label>
-            <Controller
-              name="lastName"
-              control={control}
-              rules={{ required: "This field is required" }}
-              render={({ field }: any) => (
-                <>
-                  <Input
-                    {...field}
-                    type="text"
-                  />
-                  {errors.lastName && (
-                    <span className="text-red-500">
-                      {errors.lastName.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
+          <div className="flex flex-col lg:flex-row lg:justify-between">
+            <div className="py-2 mr-2 ">
+              <label className="block">Email Address</label>
+              <Controller
+                name="emailAddress"
+                control={control}
+                rules={{ required: "This field is required" }}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="email"
+                    />
+                    {errors.emailAddress && (
+                      <span className="text-red-500">
+                        {errors.emailAddress.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+            <div className="py-2 mr-2 ">
+              <label className="block">Phone Number</label>
+              <Controller
+                name="phoneNumber"
+                control={control}
+                rules={{ required: "This field is required" }}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="text"
+                    />
+                    {errors.phoneNumber && (
+                      <span className="text-red-500">
+                        {errors.phoneNumber.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
           </div>
-          <div className="py-2 ">
-            <label className="block">Email Address</label>
-            <Controller
-              name="emailAddress"
-              control={control}
-              rules={{ required: "This field is required" }}
-              render={({ field }: any) => (
-                <>
-                  <Input
-                    {...field}
-                    type="email"
-                  />
-                  {errors.emailAddress && (
-                    <span className="text-red-500">
-                      {errors.emailAddress.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
+          <div className="flex flex-col lg:flex-row lg:justify-between">
+            <div className="py-2 mr-2 ">
+              <label className="block">Password</label>
+              <Controller
+                name="password"
+                control={control}
+                rules={{ required: "This field is required" }}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="password"
+                    />
+                    {errors.password && (
+                      <span className="text-red-500">
+                        {errors.password.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+            <div className="py-2 mr-2 ">
+              <label className="block">Confirm Password</label>
+              <Controller
+                name="confirmPassword"
+                control={control}
+                rules={{ required: "This field is required" }}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="password"
+                    />
+                    {errors.confirmPassword && (
+                      <span className="text-red-500">
+                        {errors.confirmPassword.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
           </div>
-          <div className="py-2 ">
-            <label className="block">Phone Number</label>
-            <Controller
-              name="phoneNumber"
-              control={control}
-              rules={{ required: "This field is required" }}
-              render={({ field }: any) => (
-                <>
-                  <Input
-                    {...field}
-                    type="text"
-                  />
-                  {errors.phoneNumber && (
-                    <span className="text-red-500">
-                      {errors.phoneNumber.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
-          </div>
-          <div className="py-2 ">
-            <label className="block">Password</label>
-            <Controller
-              name="password"
-              control={control}
-              rules={{ required: "This field is required" }}
-              render={({ field }: any) => (
-                <>
-                  <Input
-                    {...field}
-                    type="password"
-                  />
-                  {errors.password && (
-                    <span className="text-red-500">
-                      {errors.password.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
-          </div>
-          <div className="py-2 ">
-            <label className="block">Confirm Password</label>
-            <Controller
-              name="confirmPassword"
-              control={control}
-              rules={{ required: "This field is required" }}
-              render={({ field }: any) => (
-                <>
-                  <Input
-                    {...field}
-                    type="password"
-                  />
-                  {errors.confirmPassword && (
-                    <span className="text-red-500">
-                      {errors.confirmPassword.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
+          <div className="flex flex-col lg:flex-row lg:justify-between">
+            <div className="pb-2 mr-2 ">
+              <label>Latitude</label>
+              <br></br>
+              <Controller
+                name="latitude"
+                control={control}
+                defaultValue={location?.latitude.toString()}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="text"
+                      value={location?.latitude}
+                    />
+                  </>
+                )}
+              />
+            </div>
+            <div className="pb-2 mr-2 ">
+              <label>Latitude</label>
+              <br></br>
+              <Controller
+                name="latitude"
+                control={control}
+                defaultValue={location?.latitude.toString()}
+                render={({ field }: any) => (
+                  <>
+                    <Input
+                      {...field}
+                      type="text"
+                      value={location?.latitude}
+                    />
+                  </>
+                )}
+              />
+            </div>
           </div>
           <Button
             className="bg-orange-500 mt-6 text-white w-[200px] font-bold hover:bg-gray-500"
