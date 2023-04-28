@@ -53,7 +53,6 @@ function UserRegistration() {
       latitude: locationData.latitude,
       longitude: locationData.longitude,
     };
-    console.log(newData);
     if (data.password !== data.confirmPassword) {
       notification.error({
         message: "Error",
@@ -61,33 +60,33 @@ function UserRegistration() {
         duration: 2,
       });
     } else {
-      // try {
-      //   setLoading(true);
-      //   const res = await axios.post(
-      //     `${process.env.API_URL}${UserEndpoints.userRegistration}`,
-      //     data,
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   );
-      //   if (res.data.token) {
-      //     notification.success({
-      //       message: "Success",
-      //       description: "Registration Success, we will give you a call soon",
-      //       duration: 5,
-      //     });
-      //     setLoading(false);
-      //   }
-      // } catch (error) {
-      //   notification.error({
-      //     message: "Error",
-      //     description: `User Already Exists with this email address ${data.emailAddress}`,
-      //     duration: 2,
-      //   });
-      //   setLoading(false);
-      // }
+      try {
+        setLoading(true);
+        const res = await axios.post(
+          `${process.env.API_URL}${UserEndpoints.userRegistration}`,
+          newData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (res.data) {
+          notification.success({
+            message: "Success",
+            description: "Registration Success, we will give you a call soon",
+            duration: 5,
+          });
+          setLoading(false);
+        }
+      } catch (error) {
+        notification.error({
+          message: "Error",
+          description: `User Already Exists with this email address ${data.emailAddress}`,
+          duration: 2,
+        });
+        setLoading(false);
+      }
     }
   };
   useEffect(() => {
@@ -240,34 +239,24 @@ function UserRegistration() {
             <div className="pb-2 mr-2 ">
               <label>Latitude</label>
               <br></br>
-              <Controller
-                name="latitude"
-                control={control}
-                defaultValue={location?.latitude.toString()}
-                render={({ field }: any) => (
-                  <>
-                    <Input
-                      {...field}
-                      type="text"
-                      value={location?.latitude}
-                    />
-                  </>
-                )}
+
+              <Input
+                type="text"
+                value={location?.latitude}
               />
             </div>
             <div className="pb-2 mr-2 ">
-              <label>Latitude</label>
+              <label>Longitude</label>
               <br></br>
               <Controller
                 name="latitude"
                 control={control}
-                defaultValue={location?.latitude.toString()}
                 render={({ field }: any) => (
                   <>
                     <Input
                       {...field}
                       type="text"
-                      value={location?.latitude}
+                      value={location?.longitude}
                     />
                   </>
                 )}

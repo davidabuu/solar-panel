@@ -1,15 +1,20 @@
 const baseAdminUrl = "/AdminAuth";
-const baseUserUrl = "/UserAuth"
+const baseUserUrl = "/UserAuth";
 export const AdminEndpoints = {
   adminLogin: `${baseAdminUrl}/AdminLogin`,
   getUsers: `${baseAdminUrl}/GetAllUsers`,
   verifyUsers: `${baseAdminUrl}/VerifyUser`,
   addUserMonitoringData: `${baseAdminUrl}/UserMonitoringData`,
-  getUserMonitoringData:`${baseAdminUrl}/MonitoringDetails/`,
+  getUserMonitoringData: `${baseAdminUrl}/MonitoringDetails/`,
   addPowerPlantData: `${baseAdminUrl}/UserPowerData`,
-  getPowerPlantData:`${baseAdminUrl}/PowerPlant/`
+  getPowerPlantData: `${baseAdminUrl}/PowerPlant/`,
 };
 export const UserEndpoints = {
-  userLogin:`${baseUserUrl}/UserLogin`,
-  userRegistration:`${baseUserUrl}/UserRegistration`
-}
+  userLogin: `${baseUserUrl}/UserLogin`,
+  userRegistration: `${baseUserUrl}/RegisterUser`,
+  userInfo: `${baseUserUrl}/UserInfo`,
+  userSolarInfo: `${baseUserUrl}/UserSolarInfo`,
+  auth: `/Auth/SolarDetailsPost`,
+};
+
+// export const GetU

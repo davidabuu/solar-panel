@@ -115,6 +115,11 @@ const TableDataAdmin = () => {
       key: "lastName",
     },
     {
+      title: "Email Address",
+      dataIndex: "emailAddress",
+      key: "emailAddress",
+    },
+    {
       title: "Phone Number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",

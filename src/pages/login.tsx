@@ -4,13 +4,14 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Aos from "aos";
 import { useRouter } from "next/router";
 import "aos/dist/aos.css";
-import {  UserEndpoints } from "@/helper";
+import { UserEndpoints } from "@/helper";
 import axios from "axios";
 import Link from "next/link";
 function UserLogin() {
   type FormValues = {
     emailAddress: string;
     password: string;
+    userId: number;
   };
   const {
     control,
@@ -32,19 +33,23 @@ function UserLogin() {
           },
         }
       );
+      console.log(res.data)
       if (res.data.token) {
         notification.success({
           message: "Success",
           description: "Login Success",
           duration: 2,
         });
+        localStorage.setItem("email", data.emailAddress);
+        // localStorage.setItem("userId", data.userId.toString());
+         router.push("/user-dashboard");
         setLoading(false);
-     
       }
     } catch (error) {
       notification.error({
         message: "Error",
-        description: "User Not Found or incorrect password or user not verified yet",
+        description:
+          "User Not Found or incorrect password or user not verified yet",
         duration: 2,
       });
       setLoading(false);
@@ -60,7 +65,7 @@ function UserLogin() {
     >
       <div
         data-aos="fade-right"
-        className="flex flex-col pt-16 sm:w-[50%] w-[70%] lg:w-[30%]  rounded-lg items-center h-[50%] bg-white  shadow-md "
+        className="flex flex-col pt-16 px-5 sm:w-[50%] w-max lg:w-[30%]  rounded-lg items-center h-[50%] bg-white  shadow-md "
         style={{ boxShadow: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;" }}
       >
         <h1 className="text-2xl pb-4">USER LOGIN</h1>
