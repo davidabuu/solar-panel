@@ -55,6 +55,11 @@ function UserLogin() {
       setLoading(false);
     }
   };
+  notification.success({
+    message: "Success",
+    description: "Login Success",
+    duration: 2,
+  });
   useEffect(() => {
     Aos.init();
   }, []);

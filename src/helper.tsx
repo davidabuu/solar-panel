@@ -17,4 +17,3 @@ export const UserEndpoints = {
   auth: `/Auth/SolarDetailsPost`,
 };
 
-// export const GetU

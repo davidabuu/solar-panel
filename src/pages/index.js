@@ -5,8 +5,8 @@ import UserWebLayout from "@/components/UserWebLayout";
 import { Button } from "antd";
 import Link from "next/link";
 import React, { FC } from "react";
-
-const index: FC = () => {
+import Real from "../components/Real.js";
+const index = () => {
   return (
     <UserWebLayout webtitle="Solar Plant">
       <div className="container-landing">

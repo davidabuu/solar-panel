@@ -89,7 +89,17 @@ function UserRegistration() {
       }
     }
   };
+  notification.success({
+    message: "Success",
+    description: "Registration Success, we will give you a call soon",
+    duration: 5,
+  });
   useEffect(() => {
+    notification.success({
+      message: "Success",
+      description: "Registration Success, we will give you a call soon",
+      duration: 5,
+    });
     Aos.init();
   }, []);
   return (

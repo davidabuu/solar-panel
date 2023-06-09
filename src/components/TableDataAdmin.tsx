@@ -37,7 +37,12 @@ const TableDataAdmin = () => {
     console.log(user.userMonitoringDevice);
     return (
       <Menu onClick={(e) => handleMenuClick(user, e.key)}>
-        <Menu.Item key={user.userId}>View User Dashboard</Menu.Item>
+        <Menu.Item
+          style={{ background: "orange", marginBottom: "10px", color: "white" }}
+          key={user.userId}
+        >
+          View User Dashboard
+        </Menu.Item>
         {!user.isVerified ? (
           <Menu.Item
             className="menu"

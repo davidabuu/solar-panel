@@ -3,17 +3,15 @@ import UserWebLayout from "@/components/UserWebLayout";
 import { UserEndpoints } from "@/helper";
 import { Spin } from "antd";
 import axios from "axios";
-import { emit } from "process";
 import React, { useEffect, useState } from "react";
 const Dashboard = () => {
-  // interface DataInfo {
-  //   firstName: string;
-  //   lastName: string;
-  //   userId: string;
-  // }
-  const [data, setData] = useState();
-  const [loading, setLoading] = useState(false);
-  const [id, setId] = useState();
+  interface DataInfo {
+    firstName: string;
+    lastName: string;
+    id: number;
+  }
+  const [data, setData] = useState<DataInfo>();
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     let email = localStorage.getItem("email");
     setLoading(true);
@@ -26,17 +24,14 @@ const Dashboard = () => {
           },
         }
       );
-      console.log(res);
       setLoading(false);
       setData(res.data[0]);
-      setId(res.data[0].userId);
     };
 
     fetchData();
-    localStorage.setItem("id", data?.userId);
   }, []);
   return (
-    <UserWebLayout webtitle="Admin Dashboard">
+    <UserWebLayout webtitle="User Dashboard">
       {loading ? (
         <div className="flex-col justify-center items-center">
           <Spin /> <p>Fetching Data</p>
@@ -51,7 +46,7 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-      <UserDashboard />
+      <UserDashboard id={data?.id} />
     </UserWebLayout>
   );
 };
